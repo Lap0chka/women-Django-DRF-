@@ -15,9 +15,11 @@
 		<div class="header">
 			<ul id="mainmenu" class="mainmenu">
 			<li class="logo"><a href=""><div class="logo"></div></a></li>
-{% for m in menu %}
-			<li><a href="">{{m.title}}</a></li>
-{% endfor %}
+
+			<li><a href="{% url 'women:index' %}">Main</a></li>
+			<li><a href="{% url 'women:about' %}">About</a></li>
+			<li><a href="{% url 'women:contact' %}">Contact</a></li>
+
 				{% if request.user.is_authenticated %}
 				<li class="last"> {{user.username}} | <a href="">Log out</a></li>
 				{% else %}
