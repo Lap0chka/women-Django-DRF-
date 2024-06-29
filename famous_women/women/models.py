@@ -10,11 +10,12 @@ class PublishedManger(models.Manager):
 
 class Women(models.Model):
     title = models.CharField(max_length=128)
-    slug = models.SlugField(max_length=256, db_index=True, unique=True)
+    slug = models.SlugField(max_length=256, db_index=True, unique=True, null=True)
     content = models.TextField(blank=True)
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
+    category = models.ForeignKey('Categories', on_delete=models.PROTECT, null=True)
 
     objects = models.Manager()
     published = PublishedManger()
@@ -28,3 +29,23 @@ class Women(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+    class Meta:
+        ordering = ['-time_create']
+        indexes = [
+            models.Index(fields=['-time_create'])
+        ]
+
+
+class Categories(models.Model):
+    name = models.CharField(max_length=128, db_index=True)
+    slug = models.SlugField(max_length=164, unique=True, db_index=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        self.slug = slugify(self.title)
+        super().save()
