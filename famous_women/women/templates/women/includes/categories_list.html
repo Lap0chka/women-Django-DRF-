@@ -1,0 +1,20 @@
+
+<li>
+    {% if not cat_selected  %}
+        <strong>All categories</strong>
+    {%else %}
+        <a href="{% url 'women:index' %}">
+            All categories
+        </a>
+    {%endif%}
+</li>
+
+{% for category in cats %}
+<li>
+    {% if category.id == cat_selected %}
+    <strong>{{ category.name|capfirst }}</strong>
+    {% else %}
+    <a href="{% url 'women:index_cat' category.name %}">{{ category.name|capfirst }}</a>
+    {% endif %}
+</li>
+{% endfor %}

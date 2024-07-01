@@ -3,14 +3,20 @@ from django.shortcuts import render, get_object_or_404
 from women.models import Women, Categories
 
 
-def index(reqeust, category=None):
+def index(reqeust):
     posts = Women.published.all()
-    if category:
-        posts = Women.objects.filter(is_published=True, categories__name=category)
-    cats = Categories.objects.all()
+
     return render(reqeust, 'base.html', {
         'posts': posts,
-        'cats': cats,
+    })
+
+
+def category_view(reqeust, category):
+    category = get_object_or_404(Categories, name=category)
+    posts = Women.published.filter(categories=category)
+    return render(reqeust, 'base.html', {
+        'posts': posts,
+        'cat_selected': category.pk
     })
 
 

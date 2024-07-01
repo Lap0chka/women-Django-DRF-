@@ -1,8 +1,9 @@
 {% load static %}
+{% load women_tags %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
     <link type="text/css" href="{% static 'women/css/styles.css' %}" rel="stylesheet"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" href="{% static 'women/images/main.ico' %}" type="image/x-icon"/>
@@ -24,7 +25,7 @@
                     <li><a href="{% url 'women:contact' %}">Contact</a></li>
 
                     {% if request.user.is_authenticated %}
-                    <li class="last"> {{user.username}} | <a href="">Log out</a></li>
+                    <li class="last"> {{ user.username }} | <a href="">Log out</a></li>
                     {% else %}
                     <li class="last"><a href="">Sign up</a> | <a href="">Log in</a></li>
                     {% endif %}
@@ -33,29 +34,16 @@
             </div>
             {% endblock mainmenu %}
 
-
             <table class="table-content" border=0 cellpadding="0" cellspacing="0">
                 <tr>
                     <!-- Sidebar слева -->
                     <td valign="top" class="left-chapters">
                         <ul id="leftchapters">
-                            {% if cat_selected == 0 %}
-                            <li class="selected">All category</li>
-                            {% else %}
-                            <li><a href="">All category</a></li>
-                            {% endif %}
-
-                            {% for c in cats %}
-                            <li><a href="{% url 'women:index_cat' c.name %}">{{ c.name|capfirst }}</a></li>
-                            {%endfor%}
+                            {% show_categories cat_selected %}
                         </ul>
                     </td>
                     <!-- Конец Sidebar'а -->
                     <td valign="top" class="content">
-                        <!-- Хлебные крошки -->
-                        {% block breadcrumbs %}
-                        {% endblock %}
-
                         <!-- Блок контента -->
                         <div class="content-text">
                             {% block content %}
@@ -64,18 +52,18 @@
                                 <li>
                                     <div class="article-panel">
                                         <p class="first">Category:
-                                            {{p.get_categories}}
+                                            {{ p.get_categories }}
                                         </p>
-                                        <p class="last">Date: {{p.time_update|date:"d-m-Y H:i:s"}}</p>
+                                        <p class="last">Date: {{ p.time_update|date:"d-m-Y H:i:s" }}</p>
                                     </div>
 
                                     {% if p.photo %}
-                                    <p><img class="img-article-left thumb" src="{{p.photo.url}}"></p>
+                                    <p><img class="img-article-left thumb" src="{{ p.photo.url }}"></p>
                                     {% endif %}
 
-                                    <h2>{{p.title}}</h2>
+                                    <h2>{{ p.title }}</h2>
                                     {% autoescape on %}
-                                    {{p.content|linebreaks|truncatewords:50}}
+                                    {{ p.content|linebreaks|truncatewords:50 }}
                                     {% endautoescape %}
                                     <div class="clear"></div>
                                     <p class="link-read-post"><a href="{{ p.get_absolute_url }}">Read post</a></p>
@@ -107,13 +95,11 @@
                                         <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
                                     </li>
                                     {% endif %}
-
                                 </ul>
                             </nav>
                             {% endif %}
                         </div>
                         <!-- Конец блока контента -->
-
                     </td>
                 </tr>
             </table>

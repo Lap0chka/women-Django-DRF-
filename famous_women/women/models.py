@@ -24,7 +24,7 @@ class Women(models.Model):
         return reverse('women:post', args=[self.slug])
 
     def save(self):
-        if self.slug is None:
+        if not self.slug:
             self.slug = slugify(self.title)
         super().save()
 
@@ -53,6 +53,6 @@ class Categories(models.Model):
     def save(
             self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
-        if self.slug is None:
+        if not self.slug:
             self.slug = slugify(self.name)
         super().save()
