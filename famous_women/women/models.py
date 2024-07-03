@@ -27,7 +27,7 @@ class Women(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
     cat = models.ManyToManyField('Categories', related_name='women')
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     objects = models.Manager()
     published = PublishedManger()
