@@ -19,7 +19,7 @@ def category_view(reqeust, category):
     Render the 'index.html' template with a context containing all published Women posts belonging to a specific category.
     """
     category = get_object_or_404(Categories, name=category)
-    posts = Women.published.filter(categories=category)
+    posts = Women.published.filter(cat=category)
     return render(reqeust, 'women/index.html', {
         'posts': posts,
         'cat_selected': category.pk
