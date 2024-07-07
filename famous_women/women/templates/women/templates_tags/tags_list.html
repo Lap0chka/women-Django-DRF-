@@ -2,7 +2,7 @@
   <p>Tags:</p>
   <ul class="tags-list">
     {%for tag in tags%}
-      <li class="tag-item"><a href="{% url 'women:index_tag' tag.name%}">{{tag.name}}</a></li>
+      <li class="tag-item"><a href="{% url 'women:index_tag' tag.name%}">{{tag.name|capfirst}}</a></li>
     {%endfor%}
   </ul>
 {%endif%}
