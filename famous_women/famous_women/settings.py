@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-lfi!5bsl8mix9lscey&zfv=@@zt6cwi6ta@sn=d4-&+7_4z23c
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
 
@@ -42,12 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # apps
+    # other apps
     'django_extensions',
     'rest_framework',
+    'taggit',
+    'debug_toolbar',
+    # apps
     'api',
     'women',
-    'taggit',
+
 ]
 
 MIDDLEWARE = [
@@ -58,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'famous_women.urls'

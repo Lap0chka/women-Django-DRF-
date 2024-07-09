@@ -8,3 +8,9 @@ class WomenSerializers(ModelSerializer):
         model = Women
         fields = '__all__'
         read_only_fields = ['slug', 'time_create', 'time_update']
+
+    def create(self, validated_data):
+        categories = validated_data.pop('cat')
+        women_instance = Women.objects.create(**validated_data)
+        women_instance.cat.set(categories)
+        return women_instance

@@ -7,7 +7,7 @@ def index(request):
     """
     Render the 'index.html' template with a context containing all published Women posts.
     """
-    posts = Women.published.all()
+    posts = Women.published.all().prefetch_related('cat')
     return render(request, 'women/index.html', {
         'posts': posts,
     })
@@ -18,7 +18,7 @@ def category_view(request, category):
     Render the 'index.html' template with a context containing all published Women posts belonging to a specific category.
     """
     category = get_object_or_404(Categories, name=category)
-    posts = Women.published.filter(cat=category)
+    posts = Women.published.filter(cat=category).prefetch_related('cat')
     return render(request, 'women/index.html', {
         'posts': posts,
         'cat_selected': category.pk
@@ -31,7 +31,7 @@ def tags_view(request, tags):
     Returns:
         HttpResponse: The HTTP response displaying the Women posts filtered by the provided tags.
     """
-    posts = Women.published.filter(tags__name=tags)
+    posts = Women.published.filter(tags__name=tags).prefetch_related('cat')
     return render(request, 'women/index.html', {'posts': posts})
 
 
