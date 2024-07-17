@@ -10,5 +10,6 @@ urlpatterns = [
     path('tags/<str:tags>', views.tags_view, name='index_tag'),
     path('article/<slug:post_slug>', views.post, name='post'),
     path('about/', views.about, name='about'),
-    path('contact/', views.contact, name='contact')
+    path('contact/', views.contact, name='contact'),
+    path('add_post/', views.add_post, name='add_post')
 ]

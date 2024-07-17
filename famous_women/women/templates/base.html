@@ -20,6 +20,9 @@
                     </a></li>
 
                     <li><a href="{% url 'women:index' %}">Main</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'women:add_post' %}">Add post</a></li>
+                    {%endif%}
                     <li><a href="{% url 'women:about' %}">About</a></li>
                     <li><a href="{% url 'women:contact' %}">Contact</a></li>
 

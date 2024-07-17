@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 
+from women.forms import WomenForm
 from women.models import Women, Categories
 
 
@@ -57,3 +59,15 @@ def contact(request):
     Renders the contact page for the women's section of the website.
     """
     return render(request, 'women/contact.html')
+
+
+@login_required
+def add_post(request):
+    if request.method == 'POST':
+        form = WomenForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = WomenForm()
+
+    return render(request, 'women/add_post.html', {'form': form})
