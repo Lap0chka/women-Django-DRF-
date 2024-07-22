@@ -17,9 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
+from rest_framework import routers
+from django.conf.urls.static import static
+from api.views import WomenViewSet
+from famous_women import settings
+
+router = routers.SimpleRouter()
+router.register(r'women', WomenViewSet, )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
-    path('', include('women.urls', namespace='women')),
+  path('admin/', admin.site.urls),
+  path('api/', include(router.urls)),
+  path('', include('women.urls', namespace='women')),
 ] + debug_toolbar_urls()
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

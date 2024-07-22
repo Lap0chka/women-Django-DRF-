@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-
+from django.contrib import messages
 from women.forms import WomenForm
 from women.models import Women, Categories
 
@@ -64,9 +64,15 @@ def contact(request):
 @login_required
 def add_post(request):
     if request.method == 'POST':
-        form = WomenForm(request.POST)
+        form = WomenForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            category = form.cleaned_data.pop('cat')
+            instance.save()
+            if category is not None:
+                instance.cat.add(category)
+            messages.success(request, 'Your post will add.')
+
     else:
         form = WomenForm()
 

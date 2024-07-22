@@ -38,9 +38,9 @@
                 <tr>
                     <!-- Sidebar слева -->
                     <td valign="top" class="left-chapters">
-                        <ul id="leftchapters">
+                        <ul >
                             {% show_categories cat_selected %}
-                            <li>{% show_tags %}</li>
+                            <li class="tags">{% show_tags %}</li>
                         </ul>
 
 
@@ -49,6 +49,7 @@
                     <td valign="top" class="content">
                         <!-- Блок контента -->
                         <div class="content-text">
+                            {%include 'women/includes/messages.html'%}
                             {% block content %}
 
                             {% endblock %}
