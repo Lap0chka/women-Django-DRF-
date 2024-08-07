@@ -27,9 +27,9 @@
                     <li><a href="{% url 'women:contact' %}">Contact</a></li>
 
                     {% if request.user.is_authenticated %}
-                    <li class="last"> {{ user.username }} | <a href="">Log out</a></li>
+                    <li class="last"><a href="{% url 'account:dashboard' %}">{{ user.username }}</a> | <a href="{% url 'account:posts' %}">posts </a>| <a href="{% url 'account:logout' %}">Log out</a></li>
                     {% else %}
-                    <li class="last"><a href="">Sign up</a> | <a href="">Log in</a></li>
+                    <li class="last"><a href="">Sign up</a> | <a href="{% url 'account:login' %}">Log in</a></li>
                     {% endif %}
                 </ul>
                 <div class="clear"></div>

@@ -29,6 +29,7 @@ urlpatterns = [
   path('admin/', admin.site.urls),
   path('api/', include(router.urls)),
   path('', include('women.urls', namespace='women')),
+  path('account/', include('account.urls', namespace='account')),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:

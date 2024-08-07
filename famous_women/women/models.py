@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -31,6 +32,7 @@ class Women(models.Model):
     tags = TaggableManager(blank=True)
     objects = models.Manager()
     published = PublishedManger()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def get_absolute_url(self):
         return reverse('women:post', args=[self.slug])

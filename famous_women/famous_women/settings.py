@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'taggit',
     'debug_toolbar',
+    'django_email_verification',
     # apps
     'api',
     'women',
+    'account',
 
 ]
 
