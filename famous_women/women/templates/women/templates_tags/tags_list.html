@@ -1,6 +1,9 @@
 {% if tags %}
   <p>Tags:</p>
     {%for tag in tags%}
-      <li class="tag-item"><a href="{% url 'women:index_tag' tag.name%}">{{tag.name|capfirst}}</a></li>
+
+      <li class="tag-item">
+        <a href="{% url 'women:index_tag' tag.name%}">{{tag.name|capfirst}}</a>
+      </li>
     {%endfor%}
 {%endif%}

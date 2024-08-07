@@ -1,6 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from women.forms import WomenForm
 from women.models import Women, Categories
 
@@ -33,6 +36,7 @@ def tags_view(request, tags):
     Returns:
         HttpResponse: The HTTP response displaying the Women posts filtered by the provided tags.
     """
+
     posts = Women.published.filter(tags__name=tags).prefetch_related('cat')
     return render(request, 'women/index.html', {'posts': posts})
 
@@ -62,18 +66,17 @@ def contact(request):
 
 
 @login_required
-def add_post(request):
-    if request.method == 'POST':
-        form = WomenForm(request.POST, request.FILES)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            category = form.cleaned_data.pop('cat')
-            instance.save()
-            if category is not None:
-                instance.cat.add(category)
-            messages.success(request, 'Your post will add.')
+class CreatePost(CreateView):
+    model = Women
+    form_class = WomenForm
+    template_name = 'women/add_post.html'
+    success_url = reverse_lazy('women:add_post')
 
-    else:
-        form = WomenForm()
-
-    return render(request, 'women/add_post.html', {'form': form})
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        categories = form.cleaned_data.pop('cat', None)
+        instance.save()
+        if categories:
+            instance.cat.add(categories)
+        messages.success(self.request, 'Your post will be added.')
+        return super().form_valid(form)

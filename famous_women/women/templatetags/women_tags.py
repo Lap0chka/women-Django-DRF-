@@ -15,9 +15,9 @@ def show_categories(cat_selected=0):
 
 
 @register.inclusion_tag('women/templates_tags/tags_list.html')
-def show_tags():
+def show_tags(tag_selected=0):
     """
     Return a dictionary containing the 'tags' key with the value of the 'tags' variable.
     """
     tags = Women.tags.all()
-    return {'tags': tags}
+    return {'tags': tags, 'tag_selected': tag_selected}
