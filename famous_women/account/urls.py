@@ -13,5 +13,9 @@ urlpatterns = [
     # Dashboard
     path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/posts/', views.profile_posts, name='posts'),
+    path('dashboard/update/<slug:slug>', views.UpdatePostView.as_view(), name='update_post'),
+
+    # Register
+    path('register/', views.register, name='register'),
 
 ]

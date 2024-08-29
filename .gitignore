@@ -7,8 +7,13 @@ __pycache__
 db.sqlite3
 media
 
+# Migrations
+migrations/
+.migrations
 # Backup files #
 *.bak
+
+
 
 .idea/
 .idea/**/workspace.xml
@@ -245,3 +250,4 @@ media/
 *.pyc
 *.db
 *.pid
+

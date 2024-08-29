@@ -20,7 +20,7 @@
             {{ p.content|linebreaks|truncatewords:50 }}
             {% endautoescape %}
             <div class="clear"></div>
-            <p class="link-read-post"><a href="{{ p.get_absolute_url }}">Read post</a></p>
+            <p class="link-read-post"><a href="{% url 'account:update_post' p.slug %}">Update post</a></p>
         </li>
         {% endfor %}
     </ul>

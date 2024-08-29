@@ -1,6 +1,4 @@
-from django.utils.text import slugify
-from rest_framework.generics import ListCreateAPIView, UpdateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.response import Response
+
 from rest_framework.viewsets import ModelViewSet
 
 from api.serializers import WomenSerializers

@@ -76,6 +76,7 @@ class CreatePost(CreateView):
     def form_valid(self, form):
         instance = form.save(commit=False)
         categories = form.cleaned_data.pop('cat', None)
+        instance.user = self.request.user
         instance.save()
         if categories:
             instance.cat.add(categories)
